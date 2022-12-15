@@ -1,5 +1,5 @@
-h1 {
-  background: cyan; }
+body {
+  background: radial-gradient(black, transparent); }
 
-p {
-  color: blue; }
+.course-item:hover {
+  cursor: pointer; }

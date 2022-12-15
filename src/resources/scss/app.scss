@@ -1,1 +1,9 @@
 @import 'variables';
+
+body {
+  background: radial-gradient(black, transparent);
+}
+
+.course-item:hover {
+  cursor: pointer;
+}

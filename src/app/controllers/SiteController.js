@@ -1,14 +1,15 @@
 const { MappingMongooseToObject } = require('../../utils/mongoose')
-const Todo = require('../models/Todo')
+const Course = require('../models/Course')
 
 class SiteController {
   index(req, res, next) {
     // res.render('home')
 
-    Todo.find({})
-      .then((todos) => {
+    Course.find({})
+      .then((courses) => {
+        console.log({ courses123: MappingMongooseToObject(courses) })
         res.render('home', {
-          todos: MappingMongooseToObject(todos),
+          courses: MappingMongooseToObject(courses),
         })
       })
       .catch(next)
