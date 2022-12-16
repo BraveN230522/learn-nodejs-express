@@ -1,11 +1,57 @@
-{{#each courses}}
-  <ul class='list-group mb-4'>
-    <li class='list-group-item d-flex flex-column course-item'>
-      <a href='/courses/{{this.slug}}' class='list-group-item d-flex flex-column course-item'>
-        <div class='d-flex'>
-          <p class='ms-2'>{{this.title}}</p>
-        </div>
-      </a>
-    </li>
-  </ul>
-{{/each}}
+<div>
+  {{#each courses}}
+    <ul class='list-group mb-4'>
+      <li class='list-group-item d-flex course-item'>
+        <a href='/courses/{{this.slug}}' class='course-item'>
+          <div class='d-flex'>
+            <p class='me-2 course-index'>{{id @index}}</p>
+            <p class='course-title'>{{this.title}}</p>
+          </div>
+          <a class='course-btn' href='/courses/{{this._id}}/edit'>Edit</a>
+          <a class='course-btn delete' data-bs-toggle='modal' data-bs-target='#exampleModal' data-id="{{this._id}}">Delete</a>
+        </a>
+      </li>
+    </ul>
+  {{/each}}
+</div>
+
+<form id="delete-modal" method='post'>
+
+<div class='modal fade' id='exampleModal' tabindex='-1' aria-labelledby='exampleModalLabel' aria-hidden='true'>
+  <div class='modal-dialog'>
+    <div class='modal-content'>
+      <div class='modal-header'>
+        <h5 class='modal-title' id='exampleModalLabel'>Confirm to delete</h5>
+        <button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close'></button>
+      </div>
+      <div class='modal-body'>
+        Do you want to delete this
+        {{this.slug}}?
+      </div>
+      <div class='modal-footer'>
+        <button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Close</button>
+        <button id="delete-btn" type='button' class='btn btn-danger'>Delete</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+
+
+  window.addEventListener('DOMContentLoaded', (event) => {
+    const exampleModal = document.getElementById('exampleModal')
+    const form = document.forms['delete-modal']
+
+      exampleModal.addEventListener('show.bs.modal', function (event) {
+        const button = event.relatedTarget
+        const id = button.getAttribute('data-id')
+
+        const buttonDelete = document.getElementById('delete-btn')
+        buttonDelete.onclick = () => {
+          alert()
+        }
+    })
+  });
+
+</script>

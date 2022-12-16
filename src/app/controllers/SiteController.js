@@ -7,7 +7,6 @@ class SiteController {
 
     Course.find({})
       .then((courses) => {
-        console.log({ courses123: MappingMongooseToObject(courses) })
         res.render('home', {
           courses: MappingMongooseToObject(courses),
         })

@@ -1,0 +1,20 @@
+<div class='d-flex flex-column p-4' style='background-color: white; min-height: 100vh'>
+  <h1>This is {{course.title}}</h1>
+  <form method='post' action='/courses/{{course._id}}?_method=PUT'>
+    <div class='form-group mb-3'>
+      <label for='title'>Title</label>
+      <input value='{{course.title}}' class='form-control' id='title' name='title' placeholder='Enter title' />
+    </div>
+    <div class='form-group mb-3'>
+      <label for='description'>Description</label>
+      <input
+        value='{{course.description}}'
+        class='form-control'
+        id='description'
+        name='description'
+        placeholder='Enter Description'
+      />
+    </div>
+    <button type='submit' class='btn btn-primary'>Submit</button>
+  </form>
+</div>

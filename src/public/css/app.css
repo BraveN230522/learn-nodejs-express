@@ -1,5 +1,32 @@
 body {
   background: radial-gradient(black, transparent); }
 
-.course-item:hover {
-  cursor: pointer; }
+p {
+  margin-bottom: 0; }
+
+.course-item {
+  height: 50px;
+  text-decoration: none;
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+  align-items: center; }
+  .course-item:hover {
+    cursor: pointer; }
+
+.course-index {
+  text-decoration: none;
+  color: black; }
+
+.course-title {
+  text-decoration: none;
+  color: black; }
+
+.course-btn {
+  text-decoration: none;
+  margin-left: 20px; }
+  .course-btn.delete {
+    color: red; }
+  .course-btn:hover {
+    opacity: 0.5;
+    text-decoration: underline; }
