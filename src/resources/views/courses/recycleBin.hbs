@@ -2,12 +2,12 @@
   {{#each courses}}
     <ul class='list-group mb-4'>
       <li class='list-group-item d-flex course-item'>
-        <a href='/courses/{{this.slug}}' class='course-item'>
+        <a href='/courses/deleted/{{this.slug}}' class='course-item'>
           <div class='d-flex'>
             <p class='me-2 course-index'>{{id @index}}</p>
             <p class='course-title'>{{this.title}}</p>
           </div>
-          <a class='course-btn' href='/courses/{{this._id}}/edit'>Edit</a>
+          <a class='course-btn' id="restore-btn" data-id="{{this._id}}">Restore</a>
           <a class='course-btn delete' data-bs-toggle='modal' data-bs-target='#exampleModal' data-id="{{this._id}}">Delete</a>
         </a>
       </li>
@@ -16,6 +16,7 @@
 </div>
 
 <form id="delete-modal" method='post'>
+<form id="restore-form" method='post'>
 
 <div class='modal fade' id='exampleModal' tabindex='-1' aria-labelledby='exampleModalLabel' aria-hidden='true'>
   <div class='modal-dialog'>
@@ -30,7 +31,7 @@
       </div>
       <div class='modal-footer'>
         <button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Close</button>
-        <button id="delete-btn" type='button' class='btn btn-danger'>Delete</button>
+        <button id="delete-btn" type='button' class='btn btn-danger'>Force Delete</button>
       </div>
     </div>
   </div>
@@ -39,9 +40,11 @@
 <script>
   window.addEventListener('DOMContentLoaded', (event) => {
     const exampleModal = document.getElementById('exampleModal')
+    const restoreBtn = $('#restore-btn')
     const form = document.forms['delete-modal']
+    const restoreForm = document.forms['restore-form']
 
-    localStorage.setItem('coursesDeleted', {{coursesDeleted}})
+    console.log(restoreBtn)
 
       exampleModal.addEventListener('show.bs.modal', function (event) {
         const button = event.relatedTarget
@@ -49,9 +52,16 @@
 
         const buttonDelete = document.getElementById('delete-btn')
         buttonDelete.onclick = () => {
-          form.action = `/courses/${id}?_method=DELETE`
+          form.action = `/courses/${id}/force?_method=DELETE`
           form.submit()
         }
+    })
+
+    restoreBtn.click((e) => {
+      const id = e.target.dataset.id
+      e.preventDefault()
+      form.action = `/courses/${id}/restore?_method=PATCH`
+      form.submit()
     })
   });
 

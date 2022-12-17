@@ -4,11 +4,11 @@ const Course = require('../models/Course')
 class SiteController {
   index(req, res, next) {
     // res.render('home')
-
-    Course.find({})
-      .then((courses) => {
+    Promise.all([Course.find({}), Course.countDeleted({})])
+      .then(([courses, coursesDeleted]) => {
         res.render('home', {
           courses: MappingMongooseToObject(courses),
+          coursesDeleted,
         })
       })
       .catch(next)

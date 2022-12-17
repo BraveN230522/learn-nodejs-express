@@ -12,9 +12,30 @@ class CourseController {
       .catch(next)
   }
 
+  recycleBin(req, res, next) {
+    Course.findDeleted({})
+      .then((courses) => {
+        res.render('courses/recycleBin', {
+          courses: MappingMongooseToObject(courses),
+        })
+      })
+      .catch(next)
+  }
+
   detail(req, res, next) {
     // res.send('Course details -' + req.params.slug)
     Course.findOne({ slug: req.params.slug })
+      .then((course) => {
+        res.render('courses/detail', {
+          course: mongooseToObject(course),
+        })
+      })
+      .catch(next)
+  }
+
+  detailDeleted(req, res, next) {
+    // res.send('Course details -' + req.params.slug)
+    Course.findOneDeleted({ slug: req.params.slug })
       .then((course) => {
         res.render('courses/detail', {
           course: mongooseToObject(course),
@@ -57,7 +78,25 @@ class CourseController {
       .catch(next)
   }
 
+  restore(req, res, next) {
+    const formData = req.body
+    Course.restore({ _id: req.params.id })
+      .then(() => {
+        res.redirect('back')
+      })
+      .catch(next)
+  }
+
   delete(req, res, next) {
+    const formData = req.body
+    Course.delete({ _id: req.params.id }, formData)
+      .then(() => {
+        res.redirect('back')
+      })
+      .catch(next)
+  }
+
+  forceDelete(req, res, next) {
     const formData = req.body
     Course.deleteOne({ _id: req.params.id }, formData)
       .then(() => {
